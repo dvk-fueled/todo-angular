@@ -1,6 +1,6 @@
 "use strict"
-angular.module("todoApp", ["ngCookies", "ngResource", "ngSanitize", "ngRoute"]).config ($routeProvider) ->
+app = angular.module("todoApp", ["ngCookies", "ngResource", "ngSanitize", "ngRoute", "Parse"]).config ($routeProvider) ->
   $routeProvider.when("/",
     templateUrl: "views/main.html"
-    controller: "TodoCtrl"
+    controller: "TodoList"
   ).otherwise redirectTo: "/"
