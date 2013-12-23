@@ -24,9 +24,12 @@ app.controller "TodoCtrl", ($scope, TODO) ->
 
   loadData()
 
-  $scope.addTodo = (todo) ->
+  $scope.addTodo = (Todo) ->
+    todo = new TODO
+    todo.text = Todo.text
+    todo.done = false
+    todo.save()
     $scope.todos.push todo
-    $scope.syncData()
 
   $scope.completeTodo = (index) ->
     $scope.todos[index].done = not $scope.todos[index].done
@@ -42,3 +45,14 @@ app.controller "TodoCtrl", ($scope, TODO) ->
 
   $scope.syncData = ->
     saveData $scope.todos
+
+  $scope.destroy = ->
+    oldTodos = undefined
+    oldTodos = $scope.todos
+    $scope.todos = []
+    oldTodos.forEach (todo) ->
+      unless todo.done
+        $scope.todos.push todo
+      else
+        todo.destroy()
+    $scope.syncData()
