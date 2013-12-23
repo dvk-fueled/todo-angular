@@ -20,7 +20,10 @@ app.controller "TodoCtrl", ($scope, TODO) ->
 
   saveData = (todos) ->
     todos.forEach (todo) ->
-      todo.update()
+      if todo.isNew()
+        todo.save()
+      else
+        todo.update()
 
   loadData()
 
@@ -29,7 +32,7 @@ app.controller "TodoCtrl", ($scope, TODO) ->
     todo.text = Todo.text
     todo.done = false
     $scope.todos.push todo
-    todo.save()
+    $scope.syncData()
 
   $scope.completeTodo = (index) ->
     $scope.todos[index].done = not $scope.todos[index].done
