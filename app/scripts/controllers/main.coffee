@@ -28,8 +28,8 @@ app.controller "TodoCtrl", ($scope, TODO) ->
     todo = new TODO
     todo.text = Todo.text
     todo.done = false
-    todo.save()
     $scope.todos.push todo
+    todo.save()
 
   $scope.completeTodo = (index) ->
     $scope.todos[index].done = not $scope.todos[index].done
