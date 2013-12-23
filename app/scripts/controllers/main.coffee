@@ -12,43 +12,33 @@ app.factory 'TODO', ["Parse", (Parse) ->
   class TODO extends Parse.Model
     @configure "Todo", "text", "done"]
 
-app.controller "Todolist", ["$scope", "TODO", "Parse", ($scope, TODO, Parse) ->
-  $scope.load = ->
-    TODO.query().then (tasks) ->
-      $scope.tasks = tasks
-  $scope.destroy = (Todo) ->
-    Todo.destroy().then ->
-      $scope.load()
-  $scope.load()
-  ]
+app.controller "TodoCtrl", ($scope, TODO) ->
+  loadData = ->
+    TODO.query().then (todos) ->
+      $scope.todos = todos
+      todos
 
-app.controller "TodoList", ($scope) ->
-  $scope.todos = [
-    text: "learning angular"
-    done: true
-  ,
-    text: "build an angular app"
-    done: false
-  ]
-  $scope.addTodo = ->
-    if $scope.todoText
-      $scope.todos.push
-        text: $scope.todoText
-        done: false
+  saveData = (todos) ->
+    todos.forEach (todo) ->
+      todo.update()
 
-      $scope.todoText
+  loadData()
 
-  $scope.remaining = ->
-    count = undefined
-    count = 0
-    angular.forEach $scope.todos, (todo) ->
-      count += ((if todo.done then 0 else 1))
+  $scope.addTodo = (todo) ->
+    $scope.todos.push todo
+    $scope.syncData()
 
-    count
+  $scope.completeTodo = (index) ->
+    $scope.todos[index].done = not $scope.todos[index].done
+    todo = $scope.todos[index]
+    console.log todo
+    todo.update()
 
-  $scope.archive = ->
-    oldTodos = undefined
-    oldTodos = $scope.todos
-    $scope.todos = []
-    angular.forEach oldTodos, (todo) ->
-      $scope.todos.push todo  unless todo.done
+  $scope.save = ->
+    todo = new TODO
+    todo.text = $scope.todoText
+    todo.done = false
+    $scope.addTodo todo
+
+  $scope.syncData = ->
+    saveData $scope.todos
