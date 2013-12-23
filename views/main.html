@@ -1,0 +1,22 @@
+<div>
+    <div class="header">
+      <h2>Todo</h2>
+    </div>
+
+    <div class="new-form" ng-controller="TodoCtrl">
+
+      <form ng-submit="save()">
+        <input type="text" ng-model="todoText" size="30" placeholder="add a todo">
+        <input class="btn btn-primary" type="submit" value="add">
+      </form>
+
+
+    <div>
+    [ <a href="" ng-click="destroy()">Archive</a> ]
+      <ul>
+        <li ng-repeat="todo in todos" ng-click="completeTodo($index)">
+          <span class="done-{{todo.done}}">{{todo.text}}</span>
+        </li>
+
+      </ul>
+    </div></div></div>
