@@ -1,0 +1,25 @@
+<form class="navbar-form" ng-submit="register(user)" ng-controller="RegisterCtrl">
+    <div ng-show="errorMessage" class="alert alert-danger">
+        <strong>Error:</strong> {{errorMessage}}
+    </div>
+
+    <div class="control-group">
+        <p>
+        <input type="text" ng-model="user.username" id="inputUsername" placeholder="username">
+    </div>
+
+    <div class="control-group">
+        <p>
+        <input type="password" ng-model="user.password" id="inputPassword" placeholder="password">
+    </div>
+
+    <div class="control-group">
+        <p>
+        <input type="password" ng-model="user.passwordConfirm"
+        id="inputPassword2" placeholder="password again">
+    </div>
+
+      <div class="form-actions">
+        <button class="btn btn-primary">Register</button>
+      </div>
+</form>

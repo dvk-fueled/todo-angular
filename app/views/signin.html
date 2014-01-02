@@ -1,0 +1,8 @@
+<form class="navbar-form" ng-submit="signin(user)" ng-controller="SigninCtrl">
+<div class="alert alert-danger" ng-show="errorMessage">
+            {{errorMessage}}
+          </div>
+  <input type="text" ng-model="user.username" placeholder="username" autofocus class="span2">
+  <input type="password" ng-model="user.password" placeholder="password" class="span2">
+  <button class="btn btn-primary" >Sign In</button>
+</form>
