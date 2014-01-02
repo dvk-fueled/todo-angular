@@ -1,50 +1,22 @@
-<div class="navbar-inner">
+
 <div class="container">
-  <div class="navbar-form pull-right" ng-hide="auth.currentUser">
-    <form class="navbar-form" ng-submit="signin(user)" ng-controller="SigninCtrl">
-    <div class="alert alert-danger" ng-show="errorMessage">
-                {{errorMessage}}
-              </div>
-      <input type="text" ng-model="user.username" placeholder="username" autofocus class="span2">
-      <input type="password" ng-model="user.password" placeholder="password" class="span2">
-      <button class="btn btn-primary" >Sign In</button>
-    </form>
-    <form class="navbar-form" ng-submit="register(user)" ng-controller="RegisterCtrl">
-        <div ng-show="errorMessage" class="alert alert-danger">
-        <strong>Error:</strong> {{errorMessage}}
+  <div class="navbar-form" ng-hide="auth.currentUser">
+  <div align="center" ng-switch="switch">
+      <button class="btn btn-primary" ng-click="toggleSignin()">LogIn</button>
+      <button class="btn btn-primary" ng-click="toggleRegister()">register</button>
+      <hr>
+      <div ng-switch-when='0'></div>
+      <div ng-switch-when='1'>
+        <div ng-include src="'views/signin.html'" ></div>
       </div>
-
-      <div class="control-group">
-        <label class="control-label" for="inputUsername">Username</label>
-        <div class="controls">
-          <input type="text" ng-model="user.username" id="inputUsername" >
-        </div>
+      <div  ng-switch-when='2'>
+      <div ng-include src="'views/register.html'"></div>
       </div>
-
-      <div class="control-group">
-        <label class="control-label" for="inputPassword">Password</label>
-        <div class="controls">
-          <input type="password" ng-model="user.password" id="inputPassword" >
-        </div>
-      </div>
-
-      <div class="control-group">
-        <label class="control-label" for="inputPassword2">Password Again</label>
-        <div class="controls">
-          <input type="password" ng-model="user.passwordConfirm"
-          id="inputPassword2" >
-        </div>
-      </div>
-
-
-      <div class="form-actions">
-        <button class="btn btn-primary">Sign In</button>
-      </div>
-    </form>
+  </div>
   </div>
   <div ng-show=auth.currentUser>
       <div class="logout navbar-form pull-right">
-        Signed in as <i><b>{{auth.currentUser.username}} </b></i>
+        Signed in as <i><b>{{auth.currentUser.username}}</b></i>
         <button class="btn btn-primary" ng-click="signout()">Sign Out</button>
       </div>
           <div class="header">
@@ -70,5 +42,4 @@
     </div>
     </div>
   </div>
-</div>
 </div>
