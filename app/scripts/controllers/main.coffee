@@ -63,6 +63,14 @@ app.controller "TodoCtrl", ($scope, TODO) ->
 
 app.controller "AuthCtrl", ($scope, Parse) ->
   $scope.auth = Parse.auth
+  $scope.switch = 0
+
+  $scope.toggleSignin = ->
+    $scope.switch = 1
+
+  $scope.toggleRegister = ->
+    $scope.switch = 2
+
   $scope.signout = ->
     console.log "Signing Out"
     Parse.auth.logout()
