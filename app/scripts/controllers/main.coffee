@@ -60,3 +60,39 @@ app.controller "TodoCtrl", ($scope, TODO) ->
       else
         todo.destroy()
     $scope.syncData()
+
+app.controller "AuthCtrl", ($scope, Parse) ->
+  $scope.auth = Parse.auth
+  $scope.signout = ->
+    console.log "Signing Out"
+    Parse.auth.logout()
+
+app.controller "SigninCtrl", ($scope, Parse) ->
+  $scope.auth = Parse.auth
+  $scope.user = {}
+  $scope.errorMessage = null
+  $scope.signin = (user) ->
+    if not (user.username&&user.password)
+      return $scope.errorMessage = 'Please supply a username and password'
+    return Parse.auth.login(user.username, user.password).then (  ->
+      console.log(arguments)
+    ), (err) ->
+      $scope.errorMessage = err.data.error
+    console.log $location.path()
+
+app.controller "RegisterCtrl", ($scope, Parse) ->
+  $scope.auth = Parse.auth
+  $scope.user = {}
+  $scope.errorMessage = null
+
+  $scope.register = (user) ->
+    if user.password isnt user.passwordConfirm
+      return $scope.errorMessage = "Passwords must match"
+
+    unless user.username and user.password
+      return $scope.errorMessage = 'Please supply a username and password'
+
+    Parse.auth.register(user.username, user.password).then ->
+      console.log 'in'
+    , (err) ->
+      $scope.errorMessage = err.data.error
