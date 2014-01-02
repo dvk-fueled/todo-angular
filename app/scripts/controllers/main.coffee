@@ -1,10 +1,11 @@
 "use strict"
 
-PARSE_APPLICATION_ID = 'HmmJwp2AaCHVSmG1a7tPZHUMnUwxLbrinqGrr9tE'
-PARSE_REST_API_KEY   = 'jQ6DQhNXE3AfInnarLbZnLFQz90MgzdCl5kbiIrk'
-
 app = angular.module("todoApp")
-app.config((ParseProvider) ->
+
+app.constant('PARSE_APPLICATION_ID', 'HmmJwp2AaCHVSmG1a7tPZHUMnUwxLbrinqGrr9tE')
+app.constant('PARSE_REST_API_KEY', 'jQ6DQhNXE3AfInnarLbZnLFQz90MgzdCl5kbiIrk')
+
+app.config((ParseProvider, PARSE_APPLICATION_ID, PARSE_REST_API_KEY) ->
   ParseProvider.initialize PARSE_APPLICATION_ID, PARSE_REST_API_KEY
 )
 
